@@ -83,3 +83,5 @@ _*
 /.idea
 *.m4a
 *.DS_Store
+
+.python-version
