@@ -74,7 +74,8 @@ def acfun_download_by_vid(vid, title, output_dir='.', merge=True, info_only=Fals
 #old code removed
         url = 'http://www.acfun.cn/v/ac' + vid
         yk_streams = youku_acfun_proxy(info['sourceId'], info['encode'], url)
-        seq = ['mp4hd3', 'mp4hd2', 'mp4hd', 'flvhd']
+        # seq = ['mp4hd3', 'mp4hd2', 'mp4hd', 'flvhd']
+        seq = ['mp4hd', 'mp4hd2', 'flvhd']  # 优先接近480P的视频
         for t in seq:
             if yk_streams.get(t):
                 preferred = yk_streams[t]
