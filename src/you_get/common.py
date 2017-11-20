@@ -342,14 +342,19 @@ def get_location(url):
     return response.geturl()
 
 def urlopen_with_retry(*args, **kwargs):
-    for i in range(2):
+    retry_time = 3
+    for i in range(retry_time):
         try:
             return request.urlopen(*args, **kwargs)
-        except socket.timeout:
+        except socket.timeout as e:
             logging.debug('request attempt %s timeout' % str(i + 1))
+            if i + 1 == retry_time:
+                raise e
 # try to tackle youku CDN fails
         except error.HTTPError as http_error:
             logging.debug('HTTP Error with code{}'.format(http_error.code))
+            if i + 1 == retry_time:
+                raise http_error
 
 def get_content(url, headers={}, decoded=True):
     """Gets the content of a URL via sending a HTTP GET request.
@@ -638,7 +643,7 @@ class SimpleProgressBar:
         # 38 is the size of all statically known size in self.bar
         total_str = '%5s' % round(self.total_size / 1048576, 1)
         total_str_width = max(len(total_str), 5)
-        self.bar_size = self.term_size - 27 - 2*total_pieces_len - 2*total_str_width
+        self.bar_size = self.term_size - 28 - 2*total_pieces_len - 2*total_str_width
         self.bar = '{:>4}%% ({:>%s}/%sMB) ├{:─<%s}┤[{:>%s}/{:>%s}] {}' % (
             total_str_width, total_str, self.bar_size, total_pieces_len, total_pieces_len)
 
