@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import io
 import os
 import re
 import sys
@@ -18,7 +19,7 @@ from .util import log, term
 from .util.git import get_version
 from .util.strings import get_filename, unescape_html
 from . import json_output as json_output_
-
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf8')
 
 SITES = {
     '163'              : 'netease',
@@ -37,6 +38,7 @@ SITES = {
     'dailymotion'      : 'dailymotion',
     'dilidili'         : 'dilidili',
     'douban'           : 'douban',
+    'douyin'           : 'douyin',
     'douyu'            : 'douyutv',
     'ehow'             : 'ehow',
     'facebook'         : 'facebook',
@@ -60,11 +62,13 @@ SITES = {
     'interest'         : 'interest',
     'iqilu'            : 'iqilu',
     'iqiyi'            : 'iqiyi',
+    'ixigua'           : 'ixigua',
     'isuntv'           : 'suntv',
     'joy'              : 'joy',
     'kankanews'        : 'bilibili',
     'khanacademy'      : 'khan',
     'ku6'              : 'ku6',
+    'kuaishou'         : 'kuaishou',
     'kugou'            : 'kugou',
     'kuwo'             : 'kuwo',
     'le'               : 'le',
@@ -1020,8 +1024,11 @@ def download_url_ffmpeg(
     global output_filename
     if output_filename:
         dotPos = output_filename.rfind('.')
-        title = output_filename[:dotPos]
-        ext = output_filename[dotPos+1:]
+        if dotPos > 0:
+            title = output_filename[:dotPos]
+            ext = output_filename[dotPos+1:]
+        else:
+            title = output_filename
 
     title = tr(get_filename(title))
 

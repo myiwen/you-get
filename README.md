@@ -6,17 +6,23 @@
 
 [You-Get](https://you-get.org/) is a tiny command-line utility to download media contents (videos, audios, images) from the Web, in case there is no other handy way to do it.
 
-Here's how you use `you-get` to download a video from [this web page](http://www.fsf.org/blogs/rms/20140407-geneva-tedx-talk-free-software-free-society):
+Here's how you use `you-get` to download a video from [YouTube](https://www.youtube.com/watch?v=jNQXAC9IVRw):
 
 ```console
-$ you-get http://www.fsf.org/blogs/rms/20140407-geneva-tedx-talk-free-software-free-society
-Site:       fsf.org
-Title:      TEDxGE2014_Stallman05_LQ
-Type:       WebM video (video/webm)
-Size:       27.12 MiB (28435804 Bytes)
+$ you-get 'https://www.youtube.com/watch?v=jNQXAC9IVRw'
+site:                YouTube
+title:               Me at the zoo
+stream:
+    - itag:          43
+      container:     webm
+      quality:       medium
+      size:          0.5 MiB (564215 bytes)
+    # download-with: you-get --itag=43 [URL]
 
-Downloading TEDxGE2014_Stallman05_LQ.webm ...
-100.0% ( 27.1/27.1 MB) ├████████████████████████████████████████┤[1/1]   12 MB/s
+Downloading Me at the zoo.webm ...
+ 100% (  0.5/  0.5MB) ├██████████████████████████████████┤[1/1]    6 MB/s
+
+Saving Me at the zoo.en.srt ... Done.
 ```
 
 And here's why you might want to use it:
@@ -407,6 +413,9 @@ Use `--url`/`-u` to get a list of downloadable resource URLs extracted from the 
 | 火猫TV   | <http://www.huomao.com/>       |✓| | |
 | 全民直播 | <http://www.quanmin.tv/>       |✓| | |
 | 阳光宽频网 | <http://www.365yg.com/>      |✓| | |
+| 西瓜视频 | <https://www.ixigua.com/>      |✓| | |
+| 快手 | <https://www.kuaishou.com/>      |✓|✓| |
+| 抖音 | <https://www.douyin.com/>      |✓| | |
 
 For all other sites not on the list, the universal extractor will take care of finding and downloading interesting resources from the page.
 
