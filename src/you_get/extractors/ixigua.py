@@ -46,7 +46,7 @@ def ixigua_download(url, output_dir='.', info_only=False, **kwargs):
         Sample URL: https://www.ixigua.com/a6487187567887254029/#mid=59051127876
     """
     try:
-        video_info_url, title = get_s(get_content(url))
+        video_info_url, title = get_s(get_content(url, headers={'referer': url, 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}))
         video_info = json.loads(get_content(video_info_url))
     except Exception:
         raise NotImplementedError(url)
